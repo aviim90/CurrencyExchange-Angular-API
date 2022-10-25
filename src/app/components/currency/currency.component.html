@@ -1,0 +1,23 @@
+<div class="container d-flex justify-content-center">
+  <div class="card col-md-6 text-center mt-5">
+    <div class="card-header">
+      <h5>Currency Rates</h5>
+    </div>
+    <div class="card-body">
+      <label class="form-label">Convert from:</label>
+      <select [(ngModel)]="fromCurrency" class="form-control">
+        <option *ngFor="let cc of currencyCodes; let i=index" [value]="cc">{{currencyNames[i]}}</option>
+      </select>
+      <label class="form-label">Convert to:</label>
+      <select [(ngModel)]="toCurrency" class="form-control">
+        <option *ngFor="let cc of currencyCodes; let i=index" [value]="cc">{{currencyNames[i]}}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-success"(click)="exchange()">Rate</button>
+      {{outputRate}}
+    </div>
+
+  </div>
+</div>
+
