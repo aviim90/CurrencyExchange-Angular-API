@@ -13,6 +13,8 @@ export class CurrencyComponent implements OnInit {
   public fromCurrency: string | null = null;
   public toCurrency: string | null = null;
   public outputRate: number | null = null;
+  public loading=true;
+  public error=false;
 
 
   constructor(private currencyService: CurrencyServiceService) {
@@ -22,14 +24,21 @@ export class CurrencyComponent implements OnInit {
     this.currencyService.getCurrencies().subscribe((currencies) => {
       this.currencyNames = Object.values(currencies);
       this.currencyCodes = Object.keys(currencies);
-    })
+      this.loading=false;
+    });
   }
 
   public exchange() {
     if (this.fromCurrency != null && this.toCurrency != null) {
-      this.currencyService.getRate(this.fromCurrency, this.toCurrency).subscribe((rate) => {
-        this.outputRate = Object.values(rate.rates)[0];
-
+        this.currencyService.getRate(this.fromCurrency, this.toCurrency).subscribe(
+          {
+            next:(rate)=> {
+              this.outputRate = Object.values(rate.rates)[0];
+              this.loading=false;
+            },
+            error:(err)=>{
+              this.error=true;
+            }
       });
     }
 

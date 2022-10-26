@@ -15,9 +15,10 @@
     </div>
     <div class="mb-3">
       <button class="btn btn-success"(click)="exchange()">Rate</button>
-      {{outputRate}}
     </div>
-
+    <div *ngIf="loading==false && error==false">{{outputRate}}</div>
+    <div *ngIf="loading==true && error==false" class="alert alert-info">Loading...</div>
+    <div *ngIf="loading==false && error==true" class="alert alert-danger">Error</div>
   </div>
 </div>
 
